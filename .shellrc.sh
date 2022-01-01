@@ -23,7 +23,14 @@ addlibpath () {
 dtf () {
   MODULE=$1
   shift
-  git --git-dir="$DOTFILES/$MODULE" --work-tree="$HOME" $@
+  git --git-dir="$DOTFILES/$MODULE" --work-tree="$HOME" "$@"
+}
+
+something () {
+  MODULE=$1
+  shift
+  echo $MODULE
+  echo "$0"
 }
 
 dtfclone () {
