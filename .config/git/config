@@ -1,0 +1,7 @@
+[user]
+	email = git@bowmanjd.com
+	name = Jonathan Bowman
+[core]
+	excludesfile = ~/.config/git/gitignore
+[init]
+	defaultBranch = main
