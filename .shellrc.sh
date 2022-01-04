@@ -58,3 +58,5 @@ if [ -d ~/.shellrc.d ]; then
   done
 fi
 unset rc
+
+command -v nvim && export EDITOR=nvim
