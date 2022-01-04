@@ -26,22 +26,15 @@ dtf () {
   git --git-dir="$DOTFILES/$MODULE" --work-tree="$HOME" "$@"
 }
 
-something () {
-  MODULE=$1
-  shift
-  echo $MODULE
-  echo "$0"
-}
-
 dtfclone () {
-  mkdir -p $DOTFILES
+  mkdir -p "$DOTFILES"
   DISPOSABLE=$(mktemp -dt dtf-XXXXXX)
-  git clone -c status.showUntrackedFiles=no -n --separate-git-dir $DOTFILES/$1 $2 $DISPOSABLE
-  rm -rf $DISPOSABLE
+  git clone -c status.showUntrackedFiles=no -n --separate-git-dir "$DOTFILES/$1" "$2" "$DISPOSABLE"
+  rm -rf "$DISPOSABLE"
 }
 
 dtfnew () {
-  dtfclone $1 $2
+  dtfclone "$1" "$2"
 
   echo "Please add and commit additional files"
   echo "using 'dtf $1 add' and 'dtf $1 commit', then run"
@@ -49,7 +42,7 @@ dtfnew () {
 }
 
 dtfrestore () {
-  dtfclone $1 $2
+  dtfclone "$1" "$2"
   #dtf $MODULE branch -t $(dtf $MODULE symbolic-ref --short HEAD) origin/HEAD
   dtf $1 checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndtf $1 checkout"
 }
