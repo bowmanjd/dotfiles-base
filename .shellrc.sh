@@ -59,4 +59,4 @@ if [ -d ~/.shellrc.d ]; then
 fi
 unset rc
 
-command -v nvim && export EDITOR=nvim
+command -v nvim >/dev/null && export EDITOR=nvim
