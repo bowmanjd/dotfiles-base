@@ -48,6 +48,7 @@ dtfrestore () {
 }
 
 addpath "$HOME/.local/bin"
+addpath "$HOME/.venv/bin"
 addlibpath "$HOME/.local/lib"
 
 if [ -d ~/.shellrc.d ]; then
