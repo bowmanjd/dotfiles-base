@@ -4,10 +4,15 @@ DOTFILES="$HOME/.dotfiles"
 
 addpath () {
   if [ -d $1 ]; then
+		newpath="$PATH:$1"
+		if [ "$2" = "pre" ]; then
+			newpath="$1:$PATH"
+		fi
     case ":$PATH:" in
       *:$1:*) ;;
-      *) export PATH="$1:$PATH" ;;
+      *) export PATH="$newpath" ;;
     esac
+		unset newpath
   fi
 }
 
@@ -47,8 +52,8 @@ dtfrestore () {
   dtf $1 checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndtf $1 checkout"
 }
 
-addpath "$HOME/.local/bin"
-addpath "$HOME/.venv/bin"
+addpath "$HOME/.local/bin" pre
+addpath "$HOME/.venv/bin" pre
 addlibpath "$HOME/.local/lib"
 
 if [ -d ~/.shellrc.d ]; then
