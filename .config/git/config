@@ -2,6 +2,7 @@
 	name = Jonathan Bowman
 [core]
 	excludesfile = ~/.config/git/gitignore
+	editor = nvim
 [init]
 	defaultBranch = main
 [pull]
