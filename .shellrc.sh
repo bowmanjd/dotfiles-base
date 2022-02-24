@@ -55,6 +55,7 @@ dtfrestore () {
 dtfcheck () {
 	for mod in $(find "$DOTFILES" -maxdepth 1 -mindepth 1 -type d); do
 		printf "$(basename $mod):\n"
+		git --git-dir="$mod" remote update >/dev/null
 		git --git-dir="$mod" status -s
 	done
 }
