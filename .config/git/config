@@ -1,9 +1,13 @@
 [user]
 	name = Jonathan Bowman
+[commit]
+	gpgsign = true
 [core]
-	excludesfile = ~/.config/git/gitignore
-	editor = nvim
+       excludesfile = ~/.config/git/gitignore
+       editor = nvim
 [init]
-	defaultBranch = main
+       defaultBranch = main
+[include]
+	path = ~/.config/git/includes
 [pull]
 	rebase = false
