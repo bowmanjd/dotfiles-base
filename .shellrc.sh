@@ -52,6 +52,14 @@ dtfrestore () {
   dtf $1 checkout || echo -e "Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndtf $1 checkout"
 }
 
+dtfcheck () {
+	for mod in $(find "$DOTFILES" -maxdepth 1 -mindepth 1 -type d); do
+		printf "$(basename $mod):\n"
+		git --git-dir="$mod" remote update >/dev/null
+		git --git-dir="$mod" status -s
+	done
+}
+
 addpath "$HOME/.local/bin" pre
 addpath "$HOME/.venv/bin" pre
 addlibpath "$HOME/.local/lib"
