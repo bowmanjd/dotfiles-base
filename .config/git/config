@@ -7,11 +7,11 @@
   editor = nvim
 [init]
 	defaultBranch = main
-[include]
-	path = ~/.config/git/includes
 [pull]
 	rebase = false
 [commit]
 	gpgsign = true
 [alias]
 	ls = ls-tree -r --name-only HEAD
+[include]
+	path = ~/.config/git/includes

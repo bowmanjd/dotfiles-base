@@ -56,7 +56,7 @@ dtfcheck () {
 	for mod in $(find "$DOTFILES" -maxdepth 1 -mindepth 1 -type d); do
 		printf "\n$(basename $mod):\n"
 		git --git-dir="$mod" remote update >/dev/null
-		git --git-dir="$mod" status | rg --color never '(ahead|behind|new file|modified)'
+		dtf $(basename "$mod") status | rg --color=never '(Changes|ahead|behind|new file|modified)'
 	done
 }
 
