@@ -60,6 +60,17 @@ dtfcheck () {
 	done
 }
 
+dtfquery () {
+	for modpath in $(find "$DOTFILES" -maxdepth 1 -mindepth 1 -type d); do
+		mod="$(basename $modpath)"
+		match="$(dtf $mod ls-tree --name-only HEAD $@)"
+    if [ -n "$match" ]; then
+			echo "${mod}:"
+			echo "$match" | rg '^' -r '  '
+		fi
+	done
+}
+
 addpath "$HOME/.local/bin" pre
 addpath "$HOME/.venv/bin" pre
 addlibpath "$HOME/.local/lib"
