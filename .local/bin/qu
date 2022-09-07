@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Export query to CSV."""
+import os
+import subprocess
+
+
+def bcp2csv(query: str, filename: str) -> None:
+    """Call bcp and then visidata with SQL query.
+
+    Args:
+        query: SQL query string
+        filename: name of output filename
+    """
+    cmd = [
+        "/opt/mssql-tools/bin/bcp",
+        query,
+        "queryout",
+        filename,
+        "-c",
+        "-t,",
+        "-q",
+        "-U",
+        os.getenv("SQLCMDUSER"),
+        "-P",
+        os.getenv("SQLCMDPASSWORD"),
+        "-d",
+        os.getenv("SQLCMDDBNAME"),
+        "-S",
+        os.getenv("SQLCMDSERVER"),
+    ]
+    subprocess.check_call(cmd)
+    subprocess.check_call(["vd", filename])
+
+
+def run() -> None:
+    """Command runner."""
+    import sys
+
+    query = sys.argv[1]
+    if len(sys.argv) > 2:
+        filename = sys.argv[2]
+    else:
+        filename = "query.csv"
+    bcp2csv(query, filename)
+
+
+if __name__ == "__main__":
+    run()

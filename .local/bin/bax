@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+"""Generate table backup scripts."""
+import datetime
+
+
+def print_script(tablename: str) -> None:
+    """Output scripts to create table and backup.
+
+    Args:
+        tablename: the name of table
+    """
+    today = datetime.datetime.now().strftime("%Y%m%d")
+    backup_table = f"ConversionScripts..{tablename}Backup{today}"
+    output = (
+        f"IF OBJECT_ID('{backup_table}', 'U') IS NULL\n"
+        "    SELECT *\n"
+        f"    INTO {backup_table}\n"
+        f"    FROM CargasEnergy..{tablename}\n"
+    )
+    print(output)
+
+
+def run() -> None:
+    """Command processor/runner."""
+    import sys
+
+    if len(sys.argv) == 1 or sys.argv[1] == "help":
+        print(
+            "\n".join(
+                (
+                    "This script outputs T-SQL to create and populate backup ",
+                    "tables if they do not already exist.",
+                    "You can specify any number of table names.",
+                    "\nUsage:",
+                    "\tbax.py bEntity bLocation",
+                )
+            )
+        )
+    else:
+        for a in sys.argv[1:]:
+            print_script(a)
+
+
+if __name__ == "__main__":
+    run()
