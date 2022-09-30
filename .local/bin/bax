@@ -3,14 +3,16 @@
 import datetime
 
 
-def print_script(tablename: str) -> None:
+def print_script(
+    tablename: str, src_db: str = "CargasEnergy", dest_db: str = "ConversionScripts"
+) -> None:
     """Output scripts to create table and backup.
 
     Args:
         tablename: the name of table
     """
-    today = datetime.datetime.now().strftime("%Y%m%d")
-    backup_table = f"ConversionScripts..{tablename}Backup{today}"
+    today = datetime.datetime.now().strftime("%Y_%m_%d")
+    backup_table = f"ConversionScripts..{tablename}_Backup_{today}"
     output = (
         f"IF OBJECT_ID('{backup_table}', 'U') IS NULL\n"
         "    SELECT *\n"

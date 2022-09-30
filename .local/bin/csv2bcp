@@ -15,13 +15,13 @@ def transmogrify(filename: Path) -> None:
         header = next(reader)
         fields = (
             " VARCHAR(255) NULL, ".join(i.replace(" ", "_").lower() for i in header)
-            + ' VARCHAR(255) NULL"'
+            + " VARCHAR(255) NULL"
         )
         print(
             f"sqlcmd -d ConversionScripts -Q \"IF OBJECT_ID('{filename.stem}', 'U'"
             ") IS NOT NULL "
             f"DROP TABLE {filename.stem};"
-            f"CREATE TABLE {filename.stem} ({fields});"
+            f'CREATE TABLE {filename.stem} ({fields});"'
         )
         print(
             f"bcp {filename.stem} in {new_filename.name} -c -t0x1f -r0x1e "
