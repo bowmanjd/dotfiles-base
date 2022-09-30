@@ -1,5 +1,7 @@
 # .bash_profile
 
 if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
+	. ~/.shellrc.sh
 fi
+
+[ "$(tty)" = "/dev/tty1" ] && exec sway
