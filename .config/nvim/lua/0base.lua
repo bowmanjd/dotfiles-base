@@ -28,4 +28,4 @@ vim.cmd(
 )
 vim.cmd("au BufNewFile,BufRead ssh_config,*/.ssh/config.d/*  setf sshconfig")
 vim.cmd("au BufNewFile,BufRead *.sql set shiftwidth=4 tabstop=4 expandtab ff=unix")
-vim.cmd("au BufNewFile,BufRead *.js set shiftwidth=4 tabstop=4 expandtab")
+vim.cmd("au BufNewFile,BufRead *.js set shiftwidth=2 tabstop=2 expandtab")
