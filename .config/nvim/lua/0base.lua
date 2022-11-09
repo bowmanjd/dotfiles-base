@@ -16,7 +16,7 @@ vim.opt.shiftwidth = 2
 
 vim.opt.number = true
 vim.opt.cursorline = true
-vim.opt.clipboard = "unnamed"
+vim.opt.clipboard = "unnamedplus"
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
