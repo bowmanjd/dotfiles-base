@@ -1,1 +1,5 @@
 command_timeout = 2000
+
+[env_var.CUSTOMER]
+default = "nodb"
+format = "to [$env_value](bold green) "
