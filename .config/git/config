@@ -15,3 +15,6 @@
 	ls = ls-tree -r --name-only HEAD
 [include]
 	path = ~/.config/git/includes
+[push]
+	autoSetupRemote = true
+	default = simple

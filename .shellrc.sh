@@ -85,3 +85,5 @@ fi
 unset rc
 
 command -v nvim >/dev/null && export EDITOR=nvim
+
+# alias python="docker run -it python:3.11-alpine python -q"
