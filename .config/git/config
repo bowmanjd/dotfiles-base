@@ -8,13 +8,15 @@
 [init]
 	defaultBranch = main
 [pull]
-	rebase = false
+	rebase = true
 [commit]
 	gpgsign = true
 [alias]
 	ls = ls-tree -r --name-only HEAD
-[include]
-	path = ~/.config/git/includes
 [push]
 	autoSetupRemote = true
 	default = simple
+[diff]
+	colorMoved = zebra
+[fetch]
+	prune = true
