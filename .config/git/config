@@ -20,3 +20,5 @@
 	colorMoved = zebra
 [fetch]
 	prune = true
+[include]
+  path = ~/.config/git/includes
