@@ -12,35 +12,47 @@ def print_script(
         tablename: the name of table
     """
     today = datetime.datetime.now().strftime("%Y_%m_%d")
-    backup_table = f"ConversionScripts..{tablename}_Backup_{today}"
+    backup_table = f"{tablename}_Backup_{today}"
     output = (
-        f"IF OBJECT_ID('{backup_table}', 'U') IS NULL\n"
+        "IF NOT EXISTS (\n"
+        "        SELECT 1\n"
+        f"        FROM {dest_db}.INFORMATION_SCHEMA.TABLES\n"
+        f"        WHERE TABLE_NAME = '{backup_table}'\n"
+        "        )\n"
         "    SELECT *\n"
-        f"    INTO {backup_table}\n"
-        f"    FROM CargasEnergy..{tablename}\n"
+        f"    INTO {dest_db}..{backup_table}\n"
+        f"    FROM {src_db}..{tablename}\n"
     )
     print(output)
 
 
 def run() -> None:
     """Command processor/runner."""
-    import sys
+    import argparse
 
-    if len(sys.argv) == 1 or sys.argv[1] == "help":
-        print(
-            "\n".join(
-                (
-                    "This script outputs T-SQL to create and populate backup ",
-                    "tables if they do not already exist.",
-                    "You can specify any number of table names.",
-                    "\nUsage:",
-                    "\tbax.py bEntity bLocation",
-                )
-            )
-        )
-    else:
-        for a in sys.argv[1:]:
-            print_script(a)
+    parser = argparse.ArgumentParser(
+        description="This script outputs T-SQL to create"
+        " and populate backup tables if they do not already exist."
+        " Multiple tables can be listed."
+    )
+    parser.add_argument("table", nargs="+", help="Name(s) of table(s) to backup")
+    parser.add_argument(
+        "-s",
+        "--src",
+        help="Database from which to backup" " (default: CargasEnergy)",
+        default="CargasEnergy",
+    )
+    parser.add_argument(
+        "-d",
+        "--dest",
+        help="Database in which to store backup tables" " (default: ConversionScripts)",
+        default="ConversionScripts",
+    )
+
+    args = parser.parse_args()
+
+    for table in args.table:
+        print_script(table, src_db=args.src, dest_db=args.dest)
 
 
 if __name__ == "__main__":
