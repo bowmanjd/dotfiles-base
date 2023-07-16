@@ -9,8 +9,6 @@
 	defaultBranch = main
 [pull]
 	rebase = true
-[commit]
-	gpgsign = true
 [alias]
 	ls = ls-tree -r --name-only HEAD
 [push]
