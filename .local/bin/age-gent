@@ -1,0 +1,25 @@
+#!/bin/sh
+
+cipher="$HOME/.bubba"
+secret="/tmp/.bubba"
+
+if [ ! -f "$secret" ]; then
+	>"$secret"
+	chmod 0600 "$secret"
+  ~/.cargo/bin/rage -d "$cipher" > "$secret"
+fi
+
+if [ -t 0 ]; then 
+  if [ $# -ne 0 ]; then 
+    OUT="$1"
+  fi
+else
+  OUT="$(mktemp)"
+  while IFS='' read -r line; do
+    printf "%s\n" "$line"
+  done > "$OUT"
+fi
+
+if [ -f "$OUT" ]; then
+  cat "$OUT" | ~/.cargo/bin/rage -d -i "$secret"
+fi

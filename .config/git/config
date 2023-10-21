@@ -11,6 +11,7 @@
 	rebase = true
 [alias]
 	ls = ls-tree -r --name-only HEAD
+	weather = !curl wttr.in/Lancaster+PA?2FnQ
 [push]
 	autoSetupRemote = true
 	default = simple
